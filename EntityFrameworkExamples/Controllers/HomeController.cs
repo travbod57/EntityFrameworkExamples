@@ -1,4 +1,6 @@
-﻿using System;
+﻿using DAL;
+using Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -10,6 +12,14 @@ namespace EntityFrameworkExamples.Controllers
     {
         public ActionResult Index()
         {
+            using (SchoolContext ctx = new SchoolContext())
+            {
+                //ctx.Schools.Add(new School() { Id = 3, Name = "Coopers", Address = "Royal Parade" });
+                //ctx.SaveChanges();
+
+                School l = ctx.Schools.Find(1);
+            }
+
             return View();
         }
 
