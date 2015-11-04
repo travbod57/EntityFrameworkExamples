@@ -18,6 +18,7 @@ namespace DAL
         {
             Database.SetInitializer<SchoolContext>(new CreateDatabaseIfNotExists<SchoolContext>());
             //this.Configuration.LazyLoadingEnabled = false; 
+            //this.Configuration.AutoDetectChangesEnabled = false;
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

@@ -8,17 +8,23 @@ using System.Web.Mvc;
 
 namespace EntityFrameworkExamples.Controllers
 {
-    public class HomeController : Controller
+    public class HomeController : BaseController
     {
         public ActionResult Index()
         {
-            using (SchoolContext ctx = new SchoolContext())
-            {
-                //ctx.Schools.Add(new School() { Id = 3, Name = "Coopers", Address = "Royal Parade" });
-                //ctx.SaveChanges();
+            var leftJoin = LINQExamplesService.LeftJoin().ToList();
+            var rightJoin = LINQExamplesService.RightJoin().ToList(); // switch round the join order and use the same DefaultIfEmpty()
 
-                School l = ctx.Schools.Find(1);
-            }
+            var groupByQuery = LINQExamplesService.GroupByQuery().ToList();
+            var groupByLambda = LINQExamplesService.GroupByLambda().ToList();
+
+            SchoolContext _ctx = new SchoolContext();
+
+            // GetByID uses .Find() gets from Context if there already else the DB
+            School sc1 = _unitOfWork.Repository<School>().GetByID(1);
+            sc1.Name = "Bromley High";
+
+            _unitOfWork.Save();
 
             return View();
         }

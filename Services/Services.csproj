@@ -4,11 +4,11 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C9BCFBE0-1F6B-47E3-A6AB-FEBDBBDF6B74}</ProjectGuid>
+    <ProjectGuid>{70B61A5A-C4BB-4405-9024-86E3B810FBC1}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DAL</RootNamespace>
-    <AssemblyName>DAL</AssemblyName>
+    <RootNamespace>Services</RootNamespace>
+    <AssemblyName>Services</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -48,44 +48,24 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Migrations\201510101331558_Initial.cs" />
-    <Compile Include="Migrations\201510101331558_Initial.Designer.cs">
-      <DependentUpon>201510101331558_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511041258351_optimisticConcurrency.cs" />
-    <Compile Include="Migrations\201511041258351_optimisticConcurrency.Designer.cs">
-      <DependentUpon>201511041258351_optimisticConcurrency.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201511041259175_optimisticConcurrency2.cs" />
-    <Compile Include="Migrations\201511041259175_optimisticConcurrency2.Designer.cs">
-      <DependentUpon>201511041259175_optimisticConcurrency2.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
-    <Compile Include="Repository.cs" />
-    <Compile Include="Repository2.cs" />
-    <Compile Include="SchoolContext.cs" />
+    <Compile Include="BaseService.cs" />
+    <Compile Include="LINQExamplesService.cs" />
+    <Compile Include="StudentService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
+    <ProjectReference Include="..\DAL\DAL.csproj">
+      <Project>{c9bcfbe0-1f6b-47e3-a6ab-febdbbdf6b74}</Project>
+      <Name>DAL</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Models\Models.csproj">
       <Project>{11fddd61-1c15-43a5-93c2-de92389cf740}</Project>
       <Name>Models</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201510101331558_Initial.resx">
-      <DependentUpon>201510101331558_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511041258351_optimisticConcurrency.resx">
-      <DependentUpon>201511041258351_optimisticConcurrency.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201511041259175_optimisticConcurrency2.resx">
-      <DependentUpon>201511041259175_optimisticConcurrency2.cs</DependentUpon>
-    </EmbeddedResource>
+    <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

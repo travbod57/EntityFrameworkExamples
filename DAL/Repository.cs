@@ -2,8 +2,10 @@
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 using System.Data.Entity.Validation;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -26,9 +28,25 @@ namespace DAL
             return query.ToList();
         }
 
+        public IQueryable<TEntity> GetAll(params Expression<Func<TEntity, object>>[] includeExpressions)
+        {
+            IQueryable<TEntity> set = dbSet.AsQueryable();
+
+            foreach (var includeExpression in includeExpressions)
+            {
+                set = set.Include(includeExpression);
+            }
+            return set;
+        }
+
         public virtual TEntity GetByID(object id)
         {
             return dbSet.Find(id);
+        }
+
+        public IQueryable<TEntity> Find(Expression<Func<TEntity, bool>> criteria)
+        {
+            return GetAll().Where(criteria);
         }
 
         public virtual void Insert(TEntity entity)
@@ -51,10 +69,24 @@ namespace DAL
             dbSet.Remove(entityToDelete);
         }
 
+        public virtual void Delete(Expression<Func<TEntity, bool>> predicate)
+        {
+            IQueryable<TEntity> query = dbSet.Where(predicate).AsQueryable();
+            foreach (TEntity obj in query)
+            {
+                dbSet.Remove(obj);
+            }
+        }
+
         public virtual void Update(TEntity entityToUpdate)
         {
             dbSet.Attach(entityToUpdate);
             context.Entry(entityToUpdate).State = EntityState.Modified;
+        }
+
+        public DbPropertyValues GetDatabaseValues(TEntity entity)
+        {
+            return context.Entry<TEntity>(entity).GetDatabaseValues();
         }
     }
 }
